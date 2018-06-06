@@ -1,0 +1,37 @@
+{
+  "name": "faceportal",
+  "version": "1.0.0",
+  "description": "chat app",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "http-errors": "~1.6.2",
+    "knex": "^0.14.6",
+    "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "npm": "^6.1.0",
+    "socket.io": "^2.1.1",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DepickereSven/NodeJS_Faceportal.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DepickereSven/NodeJS_Faceportal/issues"
+  },
+  "homepage": "https://github.com/DepickereSven/NodeJS_Faceportal#readme"
+}
