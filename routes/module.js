@@ -16,12 +16,10 @@ router.post('/register', function (req, res, next) {
     console.log(data);
     if (data.pass === data.passRepeat){
         knex('login')
-            .where(
-                'emailAddress', data.email
-            )
+            .where('emailAddress', data.email)
+            .orWhere('userName', data.user)
             .select('userID')
             .then(function (userID) {
-                console.log(userID);
                 if (userID[0] === undefined){
                     sqlFunctions.saveNewUser(knex, {
                         htmlFunctions: index,
