@@ -30,3 +30,6 @@ You have 2 tables named:
 ![Login Table](https://i.imgur.com/2RUVjg3.jpg)
 
 ## ShowCase
+
+Sign up window
+![Sign up](https://i.imgur.com/sSJq5pP.jpg)
