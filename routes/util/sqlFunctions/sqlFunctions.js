@@ -7,7 +7,7 @@ const generateRandomNumber = require('../random/number');
 module.exports = (function () {
 
     let removeAndFindTheUserName = function (data) {
-        data.selectedUserName = data.userDetails.find((el => el.userID === data.selectedUser)).userName;
+        data.selectedUserName = data.userDetails.find((el => el.userID === parseInt(data.selectedUser))).userName;
         let index = data.userDetails.findIndex((el => el.userID === data.userID));
         data.userDetails.splice(index, 1);
         return data;
@@ -52,7 +52,7 @@ module.exports = (function () {
             .then(function (userDetails) {
                 data.userDetails = userDetails;
                 data = removeAndFindTheUserName(data);
-                data.htmlFunctions.index.login.toChat(
+                data.htmlFunctions.renderPage(
                     data.htmlFunctions.res,
                     data
                 )
@@ -77,9 +77,29 @@ module.exports = (function () {
             })
     };
 
+    let getTheChatHistoryOfOneSpecifiedPerson = function (knex,data) {
+      let neededUser = data.selectedUser;
+      let loggedInUser = data.userID;
+        knex('messages')
+            .where({
+                SendingUserID: neededUser,
+                ReceivingUserID: loggedInUser,
+            })
+            .orWhere({
+                SendingUserID: loggedInUser,
+                ReceivingUserID: neededUser,
+            })
+            .select('message', 'Date')
+            .then(function (messageData) {
+                data.messages = messageData;
+                getAllUsersDetails(knex,data)
+            })
+    };
+
     return {
         saveNewUser: saveNewUser,
-        getChatHistory: getChatHistory
+        getChatHistory: getChatHistory,
+        getTheChatHistoryOfOneSpecifiedPerson: getTheChatHistoryOfOneSpecifiedPerson
     }
 
 })();
