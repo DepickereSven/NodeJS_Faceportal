@@ -25,7 +25,7 @@ let createRespond = function (msg) {
     const contextResponse = {
         response: msg.message,
         time: msg.time,
-        username: $('.chat-with').attr('data-per')
+        username: $('.info-user').attr('data-info')
     };
     $chatHistoryList.append(templateResponse(contextResponse));
     scrollToBottom();

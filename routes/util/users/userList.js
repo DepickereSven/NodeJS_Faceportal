@@ -24,7 +24,7 @@ module.exports = (function () {
     };
 
     let changeStatusToOffline = function (userID) {
-        let user = userDataList.userData.find((el => el.user === userID));
+        let user = userDataList.userData.find((el => el.userID === userID));
         user.active = `Last seen since ${new Date().toISOString().replace('T', ' ').replace('Z', '')}`
     };
 

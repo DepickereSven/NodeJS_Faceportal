@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div class="logout">
+    <a class="btn btn-info" href="/user/<%= data.userName %>/logout">
+        <p class="info-user" data-info="<%= data.selectedUserName %>">Welcome back, <%= data.userName %></p>
+        <i style="color: white; display: contents; width: 450%" class="fa fa-fw fa-sign-out"></i>
+    </a>
+</div>
+
 <div class="container clearfix">
     <div class="people-list" id="people-list">
         <div class="search">
@@ -31,11 +38,11 @@
         </ul>
     </div>
     <div class="chat">
-        <div class="chat-header clearfix" data-name="<%= data.userName%>">
+        <div class="chat-header clearfix" data-name="<%= data.userName %>">
             <img src="/images/image<%= data.selectedUser %>.jpg" alt="avatar"/>
 
             <div class="chat-about">
-                <div class="chat-with" data-per="<%= data.selectedUserName %>" data-owner="<%= data.userID %>" data-id="<%= data.selectedUser %>">Chat with <%= data.selectedUserName %></div>
+                <div class="chat-with" data-owner="<%= data.userID %>" data-id="<%= data.selectedUser %>">Chat with <%= data.selectedUserName %></div>
                 <% if (typeof data.messages === 'object') { %>
                     <div class="chat-num-messages">Already <%= Object.keys(data.messages).length%> messages</div>
                 <% } else { %>

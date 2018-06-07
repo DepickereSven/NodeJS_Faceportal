@@ -90,6 +90,12 @@ router.use('/user', function (req,res,next) {
     }
 });
 
+router.get('/user/:username/logout', function (req,res) {
+    userList.changeStatusToOffline(req.session.user);
+    req.session.authenticated = false;
+    index.normalIndex(res);
+});
+
 router.get('/user/:id', function (req,res) {
     sqlFunctions.getTheChatHistoryOfOneSpecifiedPerson(
         knex, {
