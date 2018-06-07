@@ -37,11 +37,20 @@ module.exports = (function () {
     let sendMessageToSpecifedUser = function (userID, messageInfo) {
         console.log(allSocketIdForUsers);
         console.log('userId', userID);
-        console.log(allSocketIdForUsers.find(el => el));
-        let socketID = findUser(userID).socketID;
+        let socketID = findUser(userID);
         console.log(socketID);
-        serverSocket.to(socketID).emit('message', messageInfo);
+        if (socketID !== undefined){
+            serverSocket.to(socketID.socketID).emit('message', messageInfo);
+        }
+        // sendToAllSockets(messageInfo);
     };
+
+    function sendToAllSockets(messageInfo) {
+        allSocketIdForUsers.forEach(function (el) {
+            console.log(el);
+            serverSocket.to(el.socketID).emit('message', messageInfo);
+        })
+    }
 
     return {
         sendMessageToSpecifedUser: sendMessageToSpecifedUser
