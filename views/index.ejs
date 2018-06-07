@@ -10,6 +10,8 @@
         <% if (typeof data.messages === 'object') { %>
             <% if (data.messages.isItSignUp === true) { %>
             <input id="tab-1" type="radio" name="tab" class="sign-in">
+            <% } else {%>
+                <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
             <% } %>
         <% } else { %>
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
@@ -18,6 +20,8 @@
         <% if (typeof data.messages === 'object') { %>
             <% if (data.messages.isItSignUp === true) { %>
                 <input id="tab-2" type="radio" name="tab" class="sign-up" checked>
+            <% } else { %>
+                <input id="tab-2" type="radio" name="tab" class="sign-up">
             <% } %>
         <% } else { %>
             <input id="tab-2" type="radio" name="tab" class="sign-up">
@@ -27,22 +31,29 @@
             <% if (typeof data.messages === 'object') { %>
                 <% if (data.messages.isItSignUp === true) { %>
                     <form class="sign-in-htm dontShow" action="/login" method="post">
+                <% } else { %>
+                    <form class="sign-in-htm" action="/login" method="post">
                 <% } %>
             <% } else { %>
                 <form class="sign-in-htm" action="/login" method="post">
             <% } %>
                     <div class="group">
                         <label for="user" class="label">Username</label>
-                        <% if (typeof data.user === 'object') { %>
-                            <input id="user" name="user" type="text" class="input" value="<%= data.user.username %>">
+                        <% if (typeof data.user === 'object' ||
+                                (typeof data.user === 'object' && typeof data.messages === 'object')) { %>
+                            <% if (data.messages.isItSignUp === false) { %>
+                                <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
+                            <% } else { %>
+                                <input id="user" name="user" type="text" class="input">
+                            <% } %>
                         <% } else { %>
                             <input id="user" name="user" type="text" class="input">
                         <% } %>
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Password</label>
-                        <% if (typeof data.user === 'object') { %>
-                            <input id="pass" name="pass" type="password" class="input" data-type="password" value="<%= data.user.password %>">
+                        <% if (typeof data.user === 'object' && !(typeof data.messages === 'object')) { %>
+                            <input id="pass" name="pass" type="password" class="input" data-type="password" value="<%= data.user.pass %>">
                         <% } else { %>
                             <input id="pass" name="pass" type="password" class="input" data-type="password">
                         <% } %>
@@ -67,6 +78,8 @@
                 <% if (typeof data.messages === 'object') { %>
                     <% if (data.messages.isItSignUp === true) { %>
                         <form class="sign-up-htm show" action="/register" method="post">
+                    <% } else { %>
+                        <form class="sign-up-htm" action="/register" method="post">
                     <% } %>
                 <% } else { %>
                     <form class="sign-up-htm" action="/register" method="post">
@@ -76,6 +89,8 @@
                         <% if (typeof data.user === 'object' && typeof data.messages === 'object') { %>
                             <% if (data.messages.isItSignUp === true) { %>
                                 <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
+                            <% } else { %>
+                                <input id="user" name="user" type="text" class="input">
                             <% } %>
                         <% } else { %>
                             <input id="user" name="user" type="text" class="input">
@@ -94,6 +109,8 @@
                         <% if (typeof data.user === 'object' && typeof data.messages === 'object') { %>
                             <% if (data.messages.isItSignUp === true) { %>
                                 <input id="email" name="email" type="email" class="input" value="<%= data.user.email %>">
+                            <% } else { %>
+                                <input id="email" name="email" type="email" class="input">
                             <% } %>
                         <% } else { %>
                             <input id="email" name="email" type="email" class="input">
