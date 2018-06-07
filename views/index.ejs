@@ -7,65 +7,115 @@
 <body>
 <div class="login-wrap">
     <div class="login-html">
-        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <% if (typeof data.messages === 'object') { %>
+            <% if (data.messages.isItSignUp === true) { %>
+            <input id="tab-1" type="radio" name="tab" class="sign-in">
+            <% } %>
+        <% } else { %>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+        <% } %>
+        <label for="tab-1" id="signIn" class="tab">Sign In</label>
+        <% if (typeof data.messages === 'object') { %>
+            <% if (data.messages.isItSignUp === true) { %>
+                <input id="tab-2" type="radio" name="tab" class="sign-up" checked>
+            <% } %>
+        <% } else { %>
+            <input id="tab-2" type="radio" name="tab" class="sign-up">
+        <% } %>
+        <label for="tab-2" id="signUp" class="tab">Sign Up</label>
         <div class="login-form">
-            <form class="sign-in-htm" action="/login" method="post">
-                <div class="group">
-                    <label for="user" class="label">Username</label>
-                    <% if (typeof data.user === 'object') { %>
-                        <input id="user" name="user" type="text" class="input" value="<%= data.user.username %>">
-                    <% } else {%>
-                        <input id="user" name="user" type="text" class="input">
-                    <%}%>
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Password</label>
-                    <% if (typeof data.user === 'object') { %>
-                        <input id="pass" name="pass" type="password" class="input" data-type="password" value="<%= data.user.password %>">
-                    <% } else {%>
+            <% if (typeof data.messages === 'object') { %>
+                <% if (data.messages.isItSignUp === true) { %>
+                    <form class="sign-in-htm dontShow" action="/login" method="post">
+                <% } %>
+            <% } else { %>
+                <form class="sign-in-htm" action="/login" method="post">
+            <% } %>
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <% if (typeof data.user === 'object') { %>
+                            <input id="user" name="user" type="text" class="input" value="<%= data.user.username %>">
+                        <% } else { %>
+                            <input id="user" name="user" type="text" class="input">
+                        <% } %>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <% if (typeof data.user === 'object') { %>
+                            <input id="pass" name="pass" type="password" class="input" data-type="password" value="<%= data.user.password %>">
+                        <% } else { %>
+                            <input id="pass" name="pass" type="password" class="input" data-type="password">
+                        <% } %>
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign In">
+                    </div>
+                    <% if (typeof data.messages === 'object') { %>
+                        <% if (data.messages.isItSignUp === false) { %>
+                            <p class="error"><%= data.messages.text %></p>
+                        <% } %>
+                    <% } %>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Forgot Password?</a>
+                    </div>
+                </form>
+                <% if (typeof data.messages === 'object') { %>
+                    <% if (data.messages.isItSignUp === true) { %>
+                        <form class="sign-up-htm show" action="/register" method="post">
+                    <% } %>
+                <% } else { %>
+                    <form class="sign-up-htm" action="/register" method="post">
+                <% } %>
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <% if (typeof data.user === 'object' && typeof data.messages === 'object') { %>
+                            <% if (data.messages.isItSignUp === true) { %>
+                                <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
+                            <% } %>
+                        <% } else { %>
+                            <input id="user" name="user" type="text" class="input">
+                        <% } %>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
                         <input id="pass" name="pass" type="password" class="input" data-type="password">
-                    <%}%>
-                </div>
-                <div class="group">
-                    <input id="check" type="checkbox" class="check" checked>
-                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Sign In">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <a href="#forgot">Forgot Password?</a>
-                </div>
-            </form>
-            <form class="sign-up-htm" action="/register" method="post">
-                <div class="group">
-                    <label for="user" class="label">Username</label>
-                    <input id="user" name="user" type="text" class="input">
-                </div>
-                <div class="group">
-                    <label for="pass" class="label">Password</label>
-                    <input id="pass" name="pass" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <label for="passRepeat" class="label">Repeat Password</label>
-                    <input id="passRepeat" name="passRepeat" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <label for="email" class="label">Email Address</label>
-                    <input id="email" name="email" type="email" class="input">
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Sign Up">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <label for="tab-1">Already Member?</label>
-                </div>
-            </form>
+                    </div>
+                    <div class="group">
+                        <label for="passRepeat" class="label">Repeat Password</label>
+                        <input id="passRepeat" name="passRepeat" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label for="email" class="label">Email Address</label>
+                        <% if (typeof data.user === 'object' && typeof data.messages === 'object') { %>
+                            <% if (data.messages.isItSignUp === true) { %>
+                                <input id="email" name="email" type="email" class="input" value="<%= data.user.email %>">
+                            <% } %>
+                        <% } else { %>
+                            <input id="email" name="email" type="email" class="input">
+                        <% } %>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Sign Up">
+                    </div>
+                    <% if (typeof data.messages === 'object') { %>
+                        <% if (data.messages.isItSignUp === true) { %>
+                            <p class="error"><%= data.messages.text %></p>
+                        <% } %>
+                    <% } %>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <label for="tab-1">Already Member?</label>
+                    </div>
+                </form>
         </div>
     </div>
 </div>
 </body>
+<script src="/libraries/jquery/jquery-3.2.0.js"></script>
+<script src="/js/login.js"></script>
 </html>
