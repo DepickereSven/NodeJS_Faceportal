@@ -59,7 +59,7 @@ module.exports = (function () {
             })
     };
 
-    let getChatHistory = function (knex, data) {
+    let getOneUser = function (knex, data) {
         let user = data.userID;
         knex('messages')
             .distinct('SendingUserID', 'ReceivingUserID')
@@ -71,16 +71,16 @@ module.exports = (function () {
                     getPeople(knex, data);
                 } else {
                     data.selectedUser = generateRandomNumber.thatCanBeACertainNumber(user, Object.keys(users[0]).length);
-                    data.messages = '';
-                    getAllUsersDetails(knex, data)
+                    getTheChatHistoryOfOneSpecifiedPerson(knex, data)
                 }
             })
     };
 
-    let getTheChatHistoryOfOneSpecifiedPerson = function (knex,data) {
-      let neededUser = data.selectedUser;
-      let loggedInUser = data.userID;
+    let getTheChatHistoryOfOneSpecifiedPerson = function (knex, data) {
+        let neededUser = data.selectedUser;
+        let loggedInUser = data.userID;
         knex('messages')
+            .select('message', 'Date', 'SendingUserID')
             .where({
                 SendingUserID: neededUser,
                 ReceivingUserID: loggedInUser,
@@ -89,17 +89,32 @@ module.exports = (function () {
                 SendingUserID: loggedInUser,
                 ReceivingUserID: neededUser,
             })
-            .select('message', 'Date')
             .then(function (messageData) {
                 data.messages = messageData;
-                getAllUsersDetails(knex,data)
+                getAllUsersDetails(knex, data)
             })
+    };
+
+    let saveTheChatInDataBase = function (knex, data) {
+        knex('messages')
+            .insert(
+                [
+                    {
+                        SendingUserID: data.SendingUserID,
+                        ReceivingUserID: data.ReceivingUserID,
+                        message: data.message,
+                        Date: new Date().toISOString().replace('T', ' ').replace('Z', ''),
+                        readFlag: 0
+                    }
+                ]
+            ).then(console.log('ready'));
     };
 
     return {
         saveNewUser: saveNewUser,
-        getChatHistory: getChatHistory,
-        getTheChatHistoryOfOneSpecifiedPerson: getTheChatHistoryOfOneSpecifiedPerson
+        getChatHistory: getOneUser,
+        getTheChatHistoryOfOneSpecifiedPerson: getTheChatHistoryOfOneSpecifiedPerson,
+        saveTheChatInDataBase: saveTheChatInDataBase
     }
 
 })();
