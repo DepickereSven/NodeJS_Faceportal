@@ -31,6 +31,12 @@ You have 2 tables named:
 
 ## ShowCase
 
+How to test?
+
+When you log in 2 different account you will be capable
+of chatting live to each other.
+
+
 Sign up window
 ![Sign up](https://i.imgur.com/sSJq5pP.jpg)
 
