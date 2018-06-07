@@ -39,12 +39,15 @@
             <% } %>
                     <div class="group">
                         <label for="user" class="label">Username</label>
-                        <% if (typeof data.user === 'object' ||
-                                (typeof data.user === 'object' && typeof data.messages === 'object')) { %>
-                            <% if (data.messages.isItSignUp === false) { %>
-                                <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
+                        <% if (typeof data.user === 'object') { %>
+                            <% if (typeof data.user === 'object' && typeof data.messages === 'object') {%>
+                                <% if (data.messages.isItSignUp === false) { %>
+                                    <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
+                                <% } else { %>
+                                    <input id="user" name="user" type="text" class="input">
+                                <% } %>
                             <% } else { %>
-                                <input id="user" name="user" type="text" class="input">
+                                <input id="user" name="user" type="text" class="input" value="<%= data.user.user %>">
                             <% } %>
                         <% } else { %>
                             <input id="user" name="user" type="text" class="input">
