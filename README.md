@@ -33,3 +33,6 @@ You have 2 tables named:
 
 Sign up window
 ![Sign up](https://i.imgur.com/sSJq5pP.jpg)
+
+Chat window 
+![Chat window](https://i.imgur.com/AhMObRf.jpg)
