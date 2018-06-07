@@ -35,8 +35,13 @@
             <img src="/images/image<%= data.selectedUser %>.jpg" alt="avatar"/>
 
             <div class="chat-about">
-                <div class="chat-with" data-id="<%= data.selectedUser %>">Chat with <%= data.selectedUserName %></div>
-                <div class="chat-num-messages">Already <%= Object.keys(data.messages).length%> messages</div>
+                <div class="chat-with" data-per="<%= data.selectedUserName %>" data-owner="<%= data.userID %>" data-id="<%= data.selectedUser %>">Chat with <%= data.selectedUserName %></div>
+                <% if (typeof data.messages === 'object') { %>
+                    <div class="chat-num-messages">Already <%= Object.keys(data.messages).length%> messages</div>
+                <% } else { %>
+                    <div class="chat-num-messages">Already 0 messages</div>
+                <% } %>
+
             </div>
             <i class="fa fa-star"></i>
         </div> <!-- end chat-header -->
@@ -51,7 +56,7 @@
                             let date = h + ':' + m + " , " +  d.getDay() + "/" + d.getMonth();
 
                         %>
-                        <% if (el.SendingUserID === data.userID.toString() ) { %>
+                        <% if (el.SendingUserID === data.userID ) { %>
                             <li class="clearfix">
                                 <div class="message-data align-right">
                                     <span class="message-data-time"><%= date %></span> &nbsp; &nbsp;
