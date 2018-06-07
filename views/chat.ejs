@@ -15,23 +15,24 @@
             <i class="fa fa-search"></i>
         </div>
         <ul class="list">
-            <% data.userDetails.forEach(function (el,index) { %>
+            <% data.userDetails.forEach(function (el, index) { %>
                 <li class="clearfix">
-                            <img src="/images/image<%= el.userID%>.jpg" alt="avatar"/>
-                <div class="about">
-                    <div class="name"><%= el.userName %></div>
-                    <div class="status">
-                        <i class="fa fa-circle online"></i> online
-                    </div>
-                </div>
+                    <a href="/user/<%= el.userID %>">
+                        <img src="/images/image<%= el.userID %>.jpg" alt="avatar"/>
+                        <div class="about">
+                            <div class="name"><%= el.userName %></div>
+                            <div class="status">
+                                <i class="fa fa-circle online"></i> online
+                            </div>
+                        </div>
+                    </a>
                 </li>
             <% }) %>
         </ul>
     </div>
-
     <div class="chat">
         <div class="chat-header clearfix">
-            <img src="/images/image<%= data.selectedUser%>.jpg" alt="avatar"/>
+            <img src="/images/image<%= data.selectedUser %>.jpg" alt="avatar"/>
 
             <div class="chat-about">
                 <div class="chat-with">Chat with <%= data.selectedUserName %></div>
@@ -43,26 +44,25 @@
         <div class="chat-history">
             <ul>
                 <!--<li class="clearfix">-->
-                    <!--<div class="message-data align-right">-->
-                        <!--<span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;-->
-                        <!--<span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>-->
+                <!--<div class="message-data align-right">-->
+                <!--<span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;-->
+                <!--<span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>-->
 
-                    <!--</div>-->
-                    <!--<div class="message other-message float-right">-->
-                        <!--Hi Vincent, how are you? How is the project coming along?-->
-                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="message other-message float-right">-->
+                <!--Hi Vincent, how are you? How is the project coming along?-->
+                <!--</div>-->
                 <!--</li>-->
 
                 <!--<li>-->
-                    <!--<div class="message-data">-->
-                        <!--<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>-->
-                        <!--<span class="message-data-time">10:20 AM, Today</span>-->
-                    <!--</div>-->
-                    <!--<div class="message my-message">-->
-                        <!--Actually everything was fine. I'm very excited to show this to our team.-->
-                    <!--</div>-->
+                <!--<div class="message-data">-->
+                <!--<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>-->
+                <!--<span class="message-data-time">10:20 AM, Today</span>-->
+                <!--</div>-->
+                <!--<div class="message my-message">-->
+                <!--Actually everything was fine. I'm very excited to show this to our team.-->
+                <!--</div>-->
                 <!--</li>-->
-
 
 
             </ul>
@@ -110,7 +110,7 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
 
-<script src="/js/index.js"></script>
+<script src="/js/test.js"></script>
 
 
 </body>
