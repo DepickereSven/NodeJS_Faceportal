@@ -4,7 +4,6 @@
 
 const render = require('./util/render');
 
-
 const i = 'index';
 
 module.exports = (function () {
@@ -72,7 +71,8 @@ module.exports = (function () {
     };
 
     let toChat = function (res, data) {
-        render.this('chat', res);
+        delete data.htmlFunctions;
+        render.this('chat', res, data);
     };
 
     return {
