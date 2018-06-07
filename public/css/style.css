@@ -235,3 +235,8 @@ body {
     clear: both;
     height: 0;
 }
+
+.name,
+.chat-with{
+    text-transform: capitalize;
+}
