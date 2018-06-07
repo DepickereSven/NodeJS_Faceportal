@@ -106,7 +106,6 @@ router.get('/user/:id', function (req,res) {
 });
 
 router.put('/user/:id/message', function (req,res) {
-    console.log(req.session, req.params);
     sqlFunctions.saveTheChatInDataBase(knex,{
         SendingUserID: req.session.user,
         ReceivingUserID: req.params.id,

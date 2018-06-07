@@ -10,31 +10,25 @@ const socket = io.connect('http://localhost:8080', {
 });
 
 socket.on('message', function (msg) {
-    console.log('heau');
     addResponds(msg);
 });
 
 
 let addResponds = function (msg) {
-    console.log('SendingUserID', msg.SendingUserID);
-    console.log('usingUsers',  $('.chat-with').attr('data-id'));
-    console.log($('.chat-with').attr('data-id') === msg.SendingUserID.toString());
-    if ($('.chat-with').attr('data-id') === msg.SendingUserID.toString()){
+    if ($('.chat-with').attr('data-id') === msg.SendingUserID.toString()) {
         createRespond(msg);
     }
 };
 
 let createRespond = function (msg) {
-    const templateResponse = Handlebars.compile( $("#message-response-template").html());
+    const templateResponse = Handlebars.compile($("#message-response-template").html());
     const contextResponse = {
         response: msg.message,
         time: msg.time,
         username: $('.chat-with').attr('data-per')
     };
-    // setTimeout(function() {
-        $chatHistoryList.append(templateResponse(contextResponse));
-        scrollToBottom();
-    // }.bind(this), 250);
+    $chatHistoryList.append(templateResponse(contextResponse));
+    scrollToBottom();
 };
 
 let addMessage = function () {

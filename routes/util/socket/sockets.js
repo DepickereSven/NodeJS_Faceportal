@@ -35,22 +35,12 @@ module.exports = (function () {
     };
 
     let sendMessageToSpecifedUser = function (userID, messageInfo) {
-        console.log(allSocketIdForUsers);
-        console.log('userId', userID);
         let socketID = findUser(userID);
-        console.log(socketID);
         if (socketID !== undefined){
             serverSocket.to(socketID.socketID).emit('message', messageInfo);
         }
-        // sendToAllSockets(messageInfo);
     };
 
-    function sendToAllSockets(messageInfo) {
-        allSocketIdForUsers.forEach(function (el) {
-            console.log(el);
-            serverSocket.to(el.socketID).emit('message', messageInfo);
-        })
-    }
 
     return {
         sendMessageToSpecifedUser: sendMessageToSpecifedUser
