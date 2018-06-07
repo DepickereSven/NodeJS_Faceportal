@@ -5,7 +5,7 @@ const $chatHistoryList = $chatHistory.find('ul');
 
 const socket = io.connect('http://localhost:8080', {
     query: {
-        user: $('.chat-with').attr('data-id')
+        user: $('.chat-with').attr('data-owner')
     }
 });
 
@@ -18,8 +18,8 @@ socket.on('message', function (msg) {
 let addResponds = function (msg) {
     console.log('SendingUserID', msg.SendingUserID);
     console.log('usingUsers',  $('.chat-with').attr('data-id'));
-    console.log($('.chat-with').attr('data-id') === msg.SendingUserID);
-    if ($('.chat-with').attr('data-id') === msg.SendingUserID){
+    console.log($('.chat-with').attr('data-id') === msg.SendingUserID.toString());
+    if ($('.chat-with').attr('data-id') === msg.SendingUserID.toString()){
         createRespond(msg);
     }
 };
@@ -29,12 +29,12 @@ let createRespond = function (msg) {
     const contextResponse = {
         response: msg.message,
         time: msg.time,
-        username: $('.chat-header').attr('data-name')
+        username: $('.chat-with').attr('data-per')
     };
-    setTimeout(function() {
+    // setTimeout(function() {
         $chatHistoryList.append(templateResponse(contextResponse));
         scrollToBottom();
-    }.bind(this), 250);
+    // }.bind(this), 250);
 };
 
 let addMessage = function () {
