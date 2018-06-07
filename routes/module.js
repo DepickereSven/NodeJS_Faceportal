@@ -13,7 +13,6 @@ router.get('/', function (req, res, next) {
 
 router.post('/register', function (req, res, next) {
     let data = req.body;
-    console.log(data);
     if (data.pass === data.passRepeat) {
         knex('login')
             .where('emailAddress', data.email)
