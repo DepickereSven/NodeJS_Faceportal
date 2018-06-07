@@ -7,13 +7,24 @@ const sqlFunctions = require('./util/sqlFunctions/sqlFunctions');
 const userList = require('./util/users/userList');
 
 const index = require('./redirect/index');
+const chat = require('./redirect/chat');
 
 
 let setTheUserOnline = function (res, req, user) {
-    if (userList.addUser(user.userID)){
+    const userID = user.userID;
+    if (userList.addUser(userID)){
         req.session.authenticated = true;
-        req.session.user = user.userID;
-        index.login.toChat(res, user);
+        req.session.user = userID;
+        sqlFunctions.getChatHistory(
+            knex, {
+                htmlFunctions: {
+                    res: res,
+                    index: index
+                },
+                userID: userID,
+                userName: user.userName
+            }
+        )
     } else {
         index.login.alreadyLoggedIn(res);
     }
@@ -68,7 +79,6 @@ router.post('/login', function (req, res, next) {
                     index.login.userDontExist(res,data);
                 }
             }
-
         })
 });
 
