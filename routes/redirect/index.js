@@ -9,15 +9,19 @@ const i = 'index';
 
 module.exports = (function () {
 
+    // redirect from /
+
     let normalIndex = function (res) {
         render.this(i, res)
     };
 
+    // redirect from /register
+
     let fillInLoginDetails = function (res, data) {
         render.this(i, res, {
             user: {
-                username: data.user,
-                password: data.pass
+                user: data.user,
+                pass: data.pass
             }
         });
     };
@@ -44,11 +48,46 @@ module.exports = (function () {
         })
     };
 
+    // redirect from /login
+
+    let userDontExist = function (res, data) {
+        render.this(i, res, {
+            messages: {
+                text: "Password/Username is wrong",
+                isItSignUp: false
+            },
+            user: {
+                user: data.user
+            }
+        })
+    };
+
+    let alreadyLoggedIn = function (res) {
+      render.this(i, res, {
+          messages: {
+              text: "You are already logged in",
+              isItSignUp: false
+          }
+      })
+    };
+
+    let toChat = function (res, data) {
+        render.this('chat', res);
+    };
+
     return {
         normalIndex: normalIndex,
-        fillInLoginDetails: fillInLoginDetails,
-        thisCombinationAlreadyExist: thisCombinationAlreadyExist,
-        passNotCorrect: passNotCorrect
+        register: {
+            fillInLoginDetails: fillInLoginDetails,
+            thisCombinationAlreadyExist: thisCombinationAlreadyExist,
+            passNotCorrect: passNotCorrect
+        },
+        login: {
+            userDontExist: userDontExist,
+            alreadyLoggedIn: alreadyLoggedIn,
+            toChat: toChat
+        }
+
     }
 
 })();
