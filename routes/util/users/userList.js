@@ -8,16 +8,17 @@ const userDataList = require('./userDataList');
 module.exports = (function () {
 
 
-    let addUser = function (userID) {
-        if (checkIfUserIsOnline(userID)) {
+    let addUser = function (user) {
+        if (checkIfUserIsOnline(user.userID)) {
             return false;
         } else {
             let newUser = {
-                user: userID,
+                userID: user.userID,
+                username: user.userName,
                 activeSince: "Online"
             };
             userDataList.userData.push(newUser);
-            let index = userDataList.userData.findIndex((el => el.user === userID));
+            let index = userDataList.userData.findIndex((el => el.user === user.userID));
             return true;
         }
     };

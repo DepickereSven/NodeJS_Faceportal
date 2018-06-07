@@ -9,11 +9,11 @@ const userList = require('./util/users/userList');
 const index = require('./redirect/index');
 
 
-let setTheUserOnline = function (res, req, data, userID) {
-    if (userList.addUser(userID)){
+let setTheUserOnline = function (res, req, user) {
+    if (userList.addUser(user.userID)){
         req.session.authenticated = true;
-        req.session.user = userID;
-        index.login.toChat(res, data);
+        req.session.user = user.userID;
+        index.login.toChat(res, user);
     } else {
         index.login.alreadyLoggedIn(res);
     }
@@ -60,7 +60,10 @@ router.post('/login', function (req, res, next) {
                 index.login.userDontExist(res, data);
             } else {
                 if(sqlData[0].password === data.pass){
-                    setTheUserOnline(res,req,data,sqlData[0].userID);
+                    setTheUserOnline(res,req, {
+                        userID: sqlData[0].userID,
+                        userName: data.user
+                    });
                 } else {
                     index.login.userDontExist(res,data);
                 }
