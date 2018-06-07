@@ -240,3 +240,8 @@ body {
 .chat-with{
     text-transform: capitalize;
 }
+
+a{
+    text-transform: none;
+    color: white;
+}
