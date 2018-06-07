@@ -8,7 +8,7 @@ module.exports = (function () {
 
     let removeAndFindTheUserName = function (data) {
         data.selectedUserName = data.userDetails.find((el => el.userID === data.selectedUser)).userName;
-        let index = data.userDetails.findIndex((el => el.user === data.userID));
+        let index = data.userDetails.findIndex((el => el.userID === data.userID));
         data.userDetails.splice(index, 1);
         return data;
     };
@@ -47,7 +47,6 @@ module.exports = (function () {
     };
 
     let getAllUsersDetails = function (knex, data) {
-        console.log(data);
         knex('login')
             .select('userID', 'userName')
             .then(function (userDetails) {
