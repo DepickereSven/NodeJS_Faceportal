@@ -36,9 +36,14 @@ How to test?
 When you log in 2 different account you will be capable
 of chatting live to each other.
 
+For some reason it won't work in Chrome. 
+
+I tried it in Firefox and Opera.
 
 Sign up window
 ![Sign up](https://i.imgur.com/sSJq5pP.jpg)
 
 Chat window 
 ![Chat window](https://i.imgur.com/AhMObRf.jpg)
+
+![Chat window](https://i.imgur.com/qdwMFoS.jpg)
