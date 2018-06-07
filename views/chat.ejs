@@ -51,7 +51,7 @@
                             let date = h + ':' + m + " , " +  d.getDay() + "/" + d.getMonth();
 
                         %>
-                        <% if (el.SendingUserID === data.userID ) { %>
+                        <% if (el.SendingUserID === data.userID.toString() ) { %>
                             <li class="clearfix">
                                 <div class="message-data align-right">
                                     <span class="message-data-time"><%= date %></span> &nbsp; &nbsp;
@@ -125,8 +125,8 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js'></script>
-
-<script src="/js/test.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+<script src="/js/index.js"></script>
 
 
 </body>
