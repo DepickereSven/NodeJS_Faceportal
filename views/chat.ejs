@@ -31,38 +31,54 @@
         </ul>
     </div>
     <div class="chat">
-        <div class="chat-header clearfix">
+        <div class="chat-header clearfix" data-name="<%= data.userName%>">
             <img src="/images/image<%= data.selectedUser %>.jpg" alt="avatar"/>
 
             <div class="chat-about">
-                <div class="chat-with">Chat with <%= data.selectedUserName %></div>
-                <div class="chat-num-messages">already 1 902 messages</div>
+                <div class="chat-with" data-id="<%= data.selectedUser %>">Chat with <%= data.selectedUserName %></div>
+                <div class="chat-num-messages">Already <%= Object.keys(data.messages).length%> messages</div>
             </div>
             <i class="fa fa-star"></i>
         </div> <!-- end chat-header -->
 
         <div class="chat-history">
             <ul>
-                <!--<li class="clearfix">-->
-                <!--<div class="message-data align-right">-->
-                <!--<span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;-->
-                <!--<span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>-->
+                <% if (typeof data.messages === 'object') { %>
+                    <% data.messages.forEach(function (el, index) { %>
+                        <%  let d = new Date(el.Date);
+                            let h = (d.getHours()<10?'0':'') + d.getHours();
+                            let m = (d.getMinutes()<10?'0':'') + d.getMinutes();
+                            let date = h + ':' + m + " , " +  d.getDay() + "/" + d.getMonth();
 
-                <!--</div>-->
-                <!--<div class="message other-message float-right">-->
-                <!--Hi Vincent, how are you? How is the project coming along?-->
-                <!--</div>-->
-                <!--</li>-->
+                        %>
+                        <% if (el.SendingUserID === data.userID ) { %>
+                            <li class="clearfix">
+                                <div class="message-data align-right">
+                                    <span class="message-data-time"><%= date %></span> &nbsp; &nbsp;
+                                    <span class="message-data-name"><%= data.userName%></span> <i class="fa fa-circle me"></i>
 
-                <!--<li>-->
-                <!--<div class="message-data">-->
-                <!--<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>-->
-                <!--<span class="message-data-time">10:20 AM, Today</span>-->
-                <!--</div>-->
-                <!--<div class="message my-message">-->
-                <!--Actually everything was fine. I'm very excited to show this to our team.-->
-                <!--</div>-->
-                <!--</li>-->
+                                </div>
+                                <div class="message other-message float-right">
+                                    <%= el.message%>
+                                </div>
+                            </li>
+                        <% } else { %>
+                            <li>
+                                <div class="message-data">
+                                    <span class="message-data-name"><i class="fa fa-circle online"></i> <%= data.selectedUserName%></span>
+                                    <span class="message-data-time"><%= date %></span>
+                                </div>
+                                <div class="message my-message">
+                                    <%= el.message%>
+                                </div>
+                            </li>
+                        <% } %>
+
+                    <% }) %>
+                <% } %>
+
+
+
 
 
             </ul>
@@ -87,7 +103,7 @@
     <li class="clearfix">
         <div class="message-data align-right">
             <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-            <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
+            <span class="message-data-name">{{username}}</span> <i class="fa fa-circle me"></i>
         </div>
         <div class="message other-message float-right">
             {{messageOutput}}
@@ -98,7 +114,7 @@
 <script id="message-response-template" type="text/x-handlebars-template">
     <li>
         <div class="message-data">
-            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-name"><i class="fa fa-circle online"></i> {{username}}</span>
             <span class="message-data-time">{{time}}, Today</span>
         </div>
         <div class="message my-message">
