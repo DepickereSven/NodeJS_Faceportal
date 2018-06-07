@@ -15,11 +15,12 @@ let setTheUserOnline = function (res, req, user) {
     if (userList.addUser(user)){
         req.session.authenticated = true;
         req.session.user = userID;
+        req.session.name = user.userName;
         sqlFunctions.getChatHistory(
             knex, {
                 htmlFunctions: {
                     res: res,
-                    index: index
+                    renderPage: index.login.toChat
                 },
                 userID: userID,
                 userName: user.userName
@@ -80,6 +81,21 @@ router.post('/login', function (req, res, next) {
                 }
             }
         })
+});
+
+router.get('/user/:id', function (req,res,next) {
+    sqlFunctions.getTheChatHistoryOfOneSpecifiedPerson(
+        knex, {
+            htmlFunctions: {
+                res: res,
+                renderPage: index.login.toChat
+            },
+            userID: req.session.user,
+            userName: req.session.name,
+            selectedUser: req.params.id
+
+        }
+    )
 });
 
 module.exports = router;
