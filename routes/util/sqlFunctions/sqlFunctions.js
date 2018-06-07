@@ -3,6 +3,7 @@
  **/
 
 const generateRandomNumber = require('../random/number');
+const sockets = require('../socket/sockets');
 
 module.exports = (function () {
 
@@ -96,6 +97,7 @@ module.exports = (function () {
     };
 
     let saveTheChatInDataBase = function (knex, data) {
+        let timeStamp = new Date().toISOString().replace('T', ' ').replace('Z', '');
         knex('messages')
             .insert(
                 [
@@ -103,11 +105,22 @@ module.exports = (function () {
                         SendingUserID: data.SendingUserID,
                         ReceivingUserID: data.ReceivingUserID,
                         message: data.message,
-                        Date: new Date().toISOString().replace('T', ' ').replace('Z', ''),
+                        Date: timeStamp,
                         readFlag: 0
                     }
                 ]
-            ).then(console.log('ready'));
+            ).then(function () {
+            let d = new Date(timeStamp);
+            let h = (d.getHours()<10?'0':'') + d.getHours();
+            let m = (d.getMinutes()<10?'0':'') + d.getMinutes();
+            let date = h + ':' + m + " , " +  d.getDay() + "/" + d.getMonth();
+            sockets.sendMessageToSpecifedUser(data.ReceivingUserID, {
+                message: data.message,
+                Date: date,
+                SendingUserID: data.SendingUserID
+            })
+            }
+        );
     };
 
     return {
