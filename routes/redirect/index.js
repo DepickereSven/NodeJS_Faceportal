@@ -19,13 +19,36 @@ module.exports = (function () {
                 username: data.user,
                 password: data.pass
             }
-
         });
+    };
+
+    let thisCombinationAlreadyExist = function (res) {
+        render.this(i, res, {
+            messages: {
+                text: 'You have already used the emailAddress/Username',
+                isItSignUp: true
+            }
+        });
+    };
+
+    let passNotCorrect = function (res, data) {
+        render.this(i, res, {
+            messages: {
+                text: "Passwords don't match",
+                isItSignUp: true
+            },
+            user: {
+                user: data.user,
+                email: data.email
+            }
+        })
     };
 
     return {
         normalIndex: normalIndex,
-        fillInLoginDetails: fillInLoginDetails
+        fillInLoginDetails: fillInLoginDetails,
+        thisCombinationAlreadyExist: thisCombinationAlreadyExist,
+        passNotCorrect: passNotCorrect
     }
 
 })();
