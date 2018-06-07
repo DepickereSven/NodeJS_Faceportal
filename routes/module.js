@@ -7,7 +7,6 @@ const sqlFunctions = require('./util/sqlFunctions/sqlFunctions');
 const userList = require('./util/users/userList');
 
 const index = require('./redirect/index');
-const chat = require('./redirect/chat');
 
 
 let setTheUserOnline = function (res, req, user) {
@@ -35,7 +34,7 @@ router.get('/', function (req, res, next) {
     index.normalIndex(res);
 });
 
-router.post('/register', function (req, res, next) {
+router.post('/register', function (req, res) {
     let data = req.body;
     if (data.pass === data.passRepeat) {
         knex('login')
@@ -59,7 +58,7 @@ router.post('/register', function (req, res, next) {
     }
 });
 
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res) {
     let data = req.body;
     knex('login')
         .where({
@@ -83,7 +82,15 @@ router.post('/login', function (req, res, next) {
         })
 });
 
-router.get('/user/:id', function (req,res,next) {
+router.use('/user', function (req,res,next) {
+    if (req.session.authenticated){
+        next();
+    } else {
+        index.normalIndex(res);
+    }
+});
+
+router.get('/user/:id', function (req,res) {
     sqlFunctions.getTheChatHistoryOfOneSpecifiedPerson(
         knex, {
             htmlFunctions: {
@@ -98,7 +105,8 @@ router.get('/user/:id', function (req,res,next) {
     )
 });
 
-router.put('/user/:id/message', function (req,res,next) {
+router.put('/user/:id/message', function (req,res) {
+    console.log(req.session, req.params);
     sqlFunctions.saveTheChatInDataBase(knex,{
         SendingUserID: req.session.user,
         ReceivingUserID: req.params.id,
