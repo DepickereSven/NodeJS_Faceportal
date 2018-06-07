@@ -20,7 +20,7 @@ module.exports = (function () {
                 ]
             )
             .then(
-                index.fillInLoginDetails(res, userDetails)
+                index.register.fillInLoginDetails(res, userDetails)
             );
     };
 
