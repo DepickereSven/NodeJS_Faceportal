@@ -38,6 +38,7 @@ CREATE TABLE `login` (
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
 INSERT INTO `login` VALUES ('admin','admin@admin.com','admin',1);
+INSERT INTO `login` VALUES ('steven','steven@gmail.com','test',1);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
