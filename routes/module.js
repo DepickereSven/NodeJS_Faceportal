@@ -12,7 +12,7 @@ const chat = require('./redirect/chat');
 
 let setTheUserOnline = function (res, req, user) {
     const userID = user.userID;
-    if (userList.addUser(userID)){
+    if (userList.addUser(user)){
         req.session.authenticated = true;
         req.session.user = userID;
         sqlFunctions.getChatHistory(
