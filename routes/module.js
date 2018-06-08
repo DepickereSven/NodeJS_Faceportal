@@ -11,7 +11,7 @@ const index = require('./redirect/index');
 
 let setTheUserOnline = function (res, req, user) {
     const userID = user.userID;
-    if (userList.addUser(user)){
+    if (userList.addUser(user)) {
         req.session.authenticated = true;
         req.session.user = userID;
         req.session.name = user.userName;
@@ -67,36 +67,36 @@ router.post('/login', function (req, res) {
         })
         .select('*')
         .then(function (sqlData) {
-            if (sqlData[0] === undefined){
+            if (sqlData[0] === undefined) {
                 index.login.userDontExist(res, data);
             } else {
-                if(sqlData[0].password === data.pass){
-                    setTheUserOnline(res,req, {
+                if (sqlData[0].password === data.pass) {
+                    setTheUserOnline(res, req, {
                         userID: sqlData[0].userID,
                         userName: data.user
                     });
                 } else {
-                    index.login.userDontExist(res,data);
+                    index.login.userDontExist(res, data);
                 }
             }
         })
 });
 
-router.use('/user', function (req,res,next) {
-    if (req.session.authenticated){
+router.use('/user', function (req, res, next) {
+    if (req.session.authenticated) {
         next();
     } else {
         index.normalIndex(res);
     }
 });
 
-router.get('/user/:username/logout', function (req,res) {
+router.get('/user/:username/logout', function (req, res) {
     userList.changeStatusToOffline(req.session.user);
     req.session.authenticated = false;
     index.normalIndex(res);
 });
 
-router.get('/user/:id', function (req,res) {
+router.get('/user/:id', function (req, res) {
     sqlFunctions.getTheChatHistoryOfOneSpecifiedPerson(
         knex, {
             htmlFunctions: {
@@ -111,8 +111,8 @@ router.get('/user/:id', function (req,res) {
     )
 });
 
-router.put('/user/:id/message', function (req,res) {
-    sqlFunctions.saveTheChatInDataBase(knex,{
+router.put('/user/:id/message', function (req, res) {
+    sqlFunctions.saveTheChatInDataBase(knex, {
         SendingUserID: req.session.user,
         ReceivingUserID: req.params.id,
         message: req.body.messageOutput,
